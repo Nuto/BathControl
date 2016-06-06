@@ -1,0 +1,7 @@
+body { font-family:verdana; font-size:12px; }
+button { font-size:17px; background-color:#3C7AC3; border:0px; padding:15px 32px; display:inline-block; margin-right:10px; margin-top:10px; color:fff; cursor:pointer; }
+table { width:100%; border-collapse:collapse; margin-top:10px; }
+table.primary td { width:50%; text-align:center; font-size:30px; }
+table.primary th { width:50%; text-align:center; }
+td { border:1px solid #ddd; padding:10px; font-family:verdana; font-size:12px; }
+th { border:1px solid #ddd; background-color:#eee; padding:10px; font-family:verdana; font-size:12px; text-align:right; }
