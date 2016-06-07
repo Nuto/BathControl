@@ -1,6 +1,6 @@
-	("Humidity.lua")
-	("Webserver.lua")
-	("Wifi.lua")
+dofile("Humidity.lua")
+dofile("Webserver.lua")
+dofile("Wifi.lua")
 
 --gpio
 dhtpin = 3
@@ -20,6 +20,9 @@ dhthum = 0
 logichumtreshold = 60
 logichumhysteresis = 10
 
+--wlan password for accesspoint
+wlanpassword = "password"
+
 function startSystem()
 	print('start controller')
 
@@ -29,7 +32,7 @@ function startSystem()
 
 	print('start wifi')
 	wifi.setmode(wifi.STATIONAP)
-	wifi.ap.config({ssid="BathControl", pwd="password", auth=wifi.AUTH_WPA2_PSK})
+	wifi.ap.config({ssid="BathControl", pwd=wlanpassword, auth=wifi.AUTH_WPA2_PSK})
 
 	print('start webserver')
 	startWebserver()
