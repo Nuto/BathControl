@@ -23,6 +23,7 @@ function startWebserver()
 			else
 				local successful = executeCommand(path)
 				if (successful) then
+					response = "successful"
 					cache = false
 				else
 					print("404 - " .. path)
@@ -100,7 +101,8 @@ function getJson()
 	t[#t + 1] = '"uptime": ' .. rtctime.get() .. ','
 	t[#t + 1] = '"treshold": ' .. logichumtreshold .. ','
 	t[#t + 1] = '"hysteresis": ' .. logichumhysteresis .. ','
-	t[#t + 1] = '"fanActive": ' .. (fanState == 1 and 'true' or 'false')
+	t[#t + 1] = '"fanActive": ' .. (fanState == 1 and 'true' or 'false') .. ','
+	t[#t + 1] = '"heap": ' .. node.heap()
 	t[#t + 1] = '}'
 	return table.concat(t, "\n")
 end
