@@ -11,6 +11,8 @@ function startWebserver()
 			
 			if (path == "/") then
 				response = getMainPage()
+			elseif (path == "/hotspot-detect.html") then --captive portal (ios)
+				response = getMainPage()	
 			elseif (path == "/json") then
 				contenttype = "application/json"
 				response = getJson()
