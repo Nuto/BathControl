@@ -43,6 +43,10 @@ function setFan(state)
 end
 
 function logic()
+	if (sensorState ~= "ready") then
+		print("logic disabled sensor not ready")
+		return
+	end
 	if (dhthum > logichumtreshold) then
 		if (fanState == 0) then
 			print("hum high, start fan")
