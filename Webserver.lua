@@ -75,7 +75,7 @@ function getMainPage()
 	t[#t + 1] = '</table>'
 	t[#t + 1] = '<table>'
 	t[#t + 1] = '<tr>'
-	t[#t + 1] = '<th>Sensor State</th><td>' .. sensorState .. '</td>'
+	t[#t + 1] = '<th width="140">Sensor State</th><td>' .. sensorState .. '</td>'
 	t[#t + 1] = '</tr><tr>'
 	t[#t + 1] = '<th>Uptime</th><td>' .. rtctime.get() .. 's</td>'
 	t[#t + 1] = '</tr><tr>'

@@ -5,8 +5,8 @@ dofile("Wifi.lua")
 
 --gpio
 dhtpin = 5
-fanpin = 6
-relaypin = 7
+relaypin = 6
+fanpin = 7
 
 --fan
 fanState = 0
@@ -33,20 +33,25 @@ function startSystem()
 	print('start controller')
 
 	initGpio()
+	setLight(1)
 
 	rtctime.set(0)
 
 	print('start wifi')
-	wifi.setmode(wifi.STATIONAP)
-	wifi.ap.config({ssid="BathControl", pwd=wlanpassword, auth=wifi.AUTH_WPA2_PSK})
-	wifi.ap.setip({ip="192.168.230.1", netmask="255.255.255.0", gateway="192.168.230.1"})
-	wifi.ap.dhcp.config({start="192.168.230.10"})
+	wifi.setphymode(wifi.PHYMODE_B)
+	wifi.setmode(wifi.STATION)
+	wifi.sta.sethostname("bath")
+	wifi.sta.config('ssid', 'password')
 
 	print('start webserver')
 	startWebserver()
 	--print('start dnsserver')
 	--startDnsServer();
 
+	tmr.delay(2000000)
+	
+	setLight(0)
+	
 	tmr.alarm(1, 2000, tmr.ALARM_AUTO, function() readDht() end)
 	tmr.alarm(2, 5000, tmr.ALARM_AUTO, function() logic() end)
 end

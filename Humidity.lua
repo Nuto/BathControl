@@ -3,12 +3,15 @@ function initGpio()
 	gpio.mode(fanpin, gpio.OUTPUT)
 	gpio.write(fanpin, gpio.LOW)
 	gpio.mode(relaypin, gpio.OUTPUT)
-	gpio.write(relaypin, gpio.LOW)
-	
-	gpio.write(relaypin,gpio.HIGH)
-	tmr.delay(1000)
-	gpio.write(relaypin,gpio.LOW)
-	
+	gpio.write(relaypin, gpio.LOW)	
+end
+
+function setLight(state)
+	if (state == 1) then
+		gpio.write(relaypin, gpio.HIGH)
+	else
+		gpio.write(relaypin, gpio.LOW)
+	end
 end
 
 --dht is humidtySensor (use float firmware)
@@ -38,8 +41,8 @@ function setFan(state)
 		if (fanLastRun + fanTimeout < tempTime or fanLastRun == 0) then
 			fanLastRun = tempTime
 			fanState = 1
-			gpio.write(fanpin,gpio.HIGH)
-			gpio.write(relaypin,gpio.HIGH)
+			gpio.write(fanpin, gpio.HIGH)
+			gpio.write(relaypin, gpio.HIGH)
 			print("start fan")
 			return true
 		else
@@ -48,8 +51,8 @@ function setFan(state)
 		end
 	else
 		fanState = 0
-		gpio.write(fanpin,gpio.LOW)
-		gpio.write(relaypin,gpio.LOW)
+		gpio.write(fanpin, gpio.LOW)
+		gpio.write(relaypin, gpio.LOW)
 		print("stop fan")
 		return true
 	end
