@@ -1,16 +1,17 @@
 dofile("Humidity.lua")
 dofile("Webserver.lua")
-dofile("Dnsserver.lua")
+--dofile("Dnsserver.lua")
 dofile("Wifi.lua")
 
 --gpio
-dhtpin = 3
-fanpin = 4
+dhtpin = 5
+fanpin = 6
+relaypin = 7
 
 --fan
 fanState = 0
 fanLastRun = 0
-fanTimeout = 120
+fanTimeout = 30
 
 ----humidity sensor
 sensorState = "unknown"
@@ -18,8 +19,8 @@ dhttemp = 0
 dhthum = 0
 
 --humidity 	threshold
-logichumtreshold = 60
-logichumhysteresis = 10
+logichumtreshold = 70
+logichumhysteresis = 5
 
 --wlan password for accesspoint
 wlanpassword = "password"
@@ -43,11 +44,11 @@ function startSystem()
 
 	print('start webserver')
 	startWebserver()
-	print('start dnsserver')
-	startDnsServer();
+	--print('start dnsserver')
+	--startDnsServer();
 
 	tmr.alarm(1, 2000, tmr.ALARM_AUTO, function() readDht() end)
-	tmr.alarm(2, 10000, tmr.ALARM_AUTO, function() logic() end)
+	tmr.alarm(2, 5000, tmr.ALARM_AUTO, function() logic() end)
 end
 
 startSystem()

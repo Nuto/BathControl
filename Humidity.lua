@@ -2,11 +2,19 @@ function initGpio()
 	gpio.mode(dhtpin, gpio.INPUT)
 	gpio.mode(fanpin, gpio.OUTPUT)
 	gpio.write(fanpin, gpio.LOW)
+	gpio.mode(relaypin, gpio.OUTPUT)
+	gpio.write(relaypin, gpio.LOW)
+	
+	gpio.write(relaypin,gpio.HIGH)
+	tmr.delay(1000)
+	gpio.write(relaypin,gpio.LOW)
+	
 end
 
 --dht is humidtySensor (use float firmware)
 function readDht()
 	status, temp, humi, temp_dec, humi_dec = dht.read(dhtpin)
+	
 	dhtstate = status
 	if (status == dht.OK) then
 		sensorState = "ready"
@@ -31,14 +39,19 @@ function setFan(state)
 			fanLastRun = tempTime
 			fanState = 1
 			gpio.write(fanpin,gpio.HIGH)
+			gpio.write(relaypin,gpio.HIGH)
 			print("start fan")
+			return true
 		else
 			print("cannot start fan - wait")
+			return false
 		end
 	else
 		fanState = 0
 		gpio.write(fanpin,gpio.LOW)
+		gpio.write(relaypin,gpio.LOW)
 		print("stop fan")
+		return true
 	end
 end
 

@@ -5,7 +5,7 @@ function startWebserver()
 			local path = parseRequest(payload)
 			print(path)
 			local status = "200 OK";
-			local contenttype = "text/html"
+			local contenttype = "text/html; charset=UTF-8"
 			local response = nil;
 			local cache = true
 			
@@ -23,14 +23,13 @@ function startWebserver()
 				contenttype = "text/javascript"
 				response = loadFile("script.js")
 			else
-				local successful = executeCommand(path)
-				if (successful) then
-					response = "successful"
-					cache = false
-				else
+				local commandresponse = executeCommand(path)
+				response = '{ "status": "' .. commandresponse .. '" }'
+				if (commandresponse == 'invalid request') then
 					print("404 - " .. path)
 					status = "404 Not Found";
-					response = "page not found"
+				else
+					cache = false
 				end
 			end
 			
@@ -130,21 +129,29 @@ function executeCommand(path)
 		if (p1 == "command") then
 			if (p2 == "fan") then
 				if (p3 == "on") then
-					setFan(1)
+					if (setFan(1)) then
+						return 'fan started'
+					end
+					return 'fan cannot start'
 				elseif (p3 == "off") then
-					setFan(0)
+					if (setFan(0)) then
+						return 'fan stopped'
+					end
+					return 'fan cannot stop'
 				end
 			end
 		elseif (p1 == "wlan") then
 			setWifi(p2, p3)
 			print(p2 .. "-" .. p3)
+			return 'accept change'
 		elseif (p1 == "config") then
 			logichumtreshold = tonumber(p2)
 			logichumhysteresis = tonumber(p3)
+			return 'accept change'
 		end
 		
-		return true
+		return 'unknown command'
 	end
 	
-	return false
+	return 'invalid request'
 end
