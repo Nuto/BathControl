@@ -3,15 +3,15 @@ Nager.BathControl
 
 Activate the bath fan if humidity high. Small responsive Webinterface to check humidity, temperature, activate the fan, get json output for historical data.
 
-#####Hardware
+##### Hardware
 ESP8266, Aosong AM2302
 
-#####Firmware
+##### Firmware
 http://nodemcu-build.com/
 Modules: DHT, file, GPIO, net, node, RTC time, timer, WiFi
 
 
-#####Available commands
+##### Available commands
 * **/config/70/10** set the humidity limits
 * **/wlan/SSID/password** set wlan config for the home wlan
 * **/command/fan/on** start the fan
@@ -19,7 +19,7 @@ Modules: DHT, file, GPIO, net, node, RTC time, timer, WiFi
 * **/json** data in json format
 
 
-#####JSON Example
+##### JSON Example
 ```json
 {
 	"humidity": 62.3,
