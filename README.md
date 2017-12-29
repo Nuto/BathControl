@@ -32,3 +32,6 @@ Modules: DHT, file, GPIO, net, node, RTC time, timer, WiFi
 	"heap": 16000
 }
 ```
+
+### Alternative
+[Sonoff TH10/TH16](https://www.itead.cc/smart-home/sonoff-th.html)
